@@ -1,0 +1,47 @@
+﻿@model EntityLayer.Concrete.Content
+@{
+    ViewBag.Title = "AddContent";
+    Layout = "~/Views/Shared/_WriterLayout.cshtml";
+}
+
+
+<style>
+    #ehvr:hover {
+        background: #00FF00;
+        color: black;
+    }
+</style>
+<br />
+<h2>İçerik Ekleme Sayfası</h2>
+<br />
+@using (Html.BeginForm("AddContent", "WriterPanelContent", FormMethod.Post))
+{
+    <div class="form-group">
+        <input type="hidden" name="HeadingId" value="@ViewBag.headingId" />
+        @Html.Label("İçeriğinizi yazınız")
+        @Html.TextAreaFor(x => x.ContentValue, 10, 30, new { @class = "form-control" })
+        @*bu kodu validation kullanıcı ara yüzünde gözüksün diye yazıyoruz*@
+        @Html.ValidationMessageFor(x => x.ContentValue, null, new { @class = "text-danger" })
+        <br />
+        <button id="ehvr" class="btn btn-success">İçeriği Ekle</button>
+    </div>
+}
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+@if ((string)TempData["content"] == "Ekleme")
+{
+
+    <script type="text/javascript">
+
+        swal({
+            title: "Success",
+            text: "Kayıt Eklendi",
+            icon: "success",
+            buton: "OK"
+        });
+
+    </script>
+}
+

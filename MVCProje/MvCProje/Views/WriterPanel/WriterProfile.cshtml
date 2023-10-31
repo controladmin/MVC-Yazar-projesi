@@ -1,0 +1,59 @@
+﻿@model EntityLayer.Concrete.Writer
+
+@{
+    ViewBag.Title = "WriterProfile";
+    Layout = "~/Views/Shared/_WriterLayout.cshtml";
+    int sayac = 0;
+}
+<style>
+    #ghvr:hover {
+        background: #deb887;
+        color: black;
+    }
+</style>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<br />
+<h2>Profilinizi Düzenleyin</h2>
+@using (Html.BeginForm("WriterProfile", "WriterPanel", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.HiddenFor(x => x.WriterId, new { @class = "form-control" })
+        <br />
+        @Html.Label("Yazar Adı")
+        @Html.TextBoxFor(x => x.WriterName, new { @class = "form-control" })
+        @*bu kodu validation kullanıcı ara yüzünde gözüksün diye yazıyoruz*@
+        @Html.ValidationMessageFor(x => x.WriterName, null, new { @class = "text-danger" })
+        <br />
+        @Html.Label("Yazar Soyadı")
+        @Html.TextBoxFor(x => x.WriterSurname, new { @class = "form-control" })
+        @*bu kodu validation kullanıcı ara yüzünde gözüksün diye yazıyoruz*@
+        @Html.ValidationMessageFor(x => x.WriterSurname, null, new { @class = "text-danger" })
+        <br />
+        @Html.Label("Yazar Mail Adresi")
+        @Html.TextBoxFor(x => x.WriterMail, new { @class = "form-control" })
+        @*bu kodu validation kullanıcı ara yüzünde gözüksün diye yazıyoruz*@
+        @Html.ValidationMessageFor(x => x.WriterMail, null, new { @class = "text-danger" })
+        <br />
+        @Html.Label("Yazar Şifresi")
+        @Html.TextBoxFor(x => x.WriterPassword, new { @class = "form-control" })
+        @*bu kodu validation kullanıcı ara yüzünde gözüksün diye yazıyoruz*@
+        @Html.ValidationMessageFor(x => x.WriterPassword, null, new { @class = "text-danger" })
+        <br />
+        @Html.Label("Yazar Ünvanı")
+        @Html.TextBoxFor(x => x.WriterTitle, new { @class = "form-control" })
+        @*bu kodu validation kullanıcı ara yüzünde gözüksün diye yazıyoruz*@
+        @Html.ValidationMessageFor(x => x.WriterTitle, null, new { @class = "text-danger" })
+        <br />
+        @Html.Label("Yazar Hakkında")
+        @Html.TextBoxFor(x => x.WriterAbout, new { @class = "form-control" })
+        @*bu kodu validation kullanıcı ara yüzünde gözüksün diye yazıyoruz*@
+        @Html.ValidationMessageFor(x => x.WriterAbout, null, new { @class = "text-danger" })
+        <br />
+        @Html.Label("Yazar Görsel Linki")
+        <input type="file" name="file" />
+        @Html.ValidationMessageFor(x => x.WriterImage, null, new { @class = "text-danger" })
+        <br />
+        <button id="ghvr" class="btn btn-warning">Değişiklikleri Uygula</button>
+    </div>
+}

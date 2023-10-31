@@ -1,0 +1,53 @@
+﻿@model EntityLayer.Concrete.Admin
+@{
+    ViewBag.Title = "AddAdmin";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    #ehvr:hover {
+        background: #00FF00;
+        color: black;
+    }
+</style>
+
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<br />
+<h1>Admin Ekleme Sayfası</h1>
+<br />
+@using (Html.BeginForm("AddAdmin", "Authorization", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="form-group">
+        @Html.Label("Kullanıcı Adı")
+        @Html.TextBoxFor(x => x.AdminUserName, new { @class = "form-control", required = "" })
+        @*bu kodu validation kullanıcı ara yüzünde gözüksün diye yazıyoruz*@
+        @Html.ValidationMessageFor(x => x.AdminUserName, null, new { @class = "text-danger" })
+        <br />
+        @Html.Label("Şifreyi Giriniz")
+        @Html.TextBoxFor(x => x.AdminPassword, new { @class = "form-control", required = "" })
+        @*bu kodu validation kullanıcı ara yüzünde gözüksün diye yazıyoruz*@
+        @Html.ValidationMessageFor(x => x.AdminPassword, null, new { @class = "text-danger" })
+        <br />
+        @Html.Label("Mail Adresini Giriniz")
+        @Html.TextBoxFor(x => x.AdminMail, new { @class = "form-control", required = "" })
+        @*bu kodu validation kullanıcı ara yüzünde gözüksün diye yazıyoruz*@
+        @Html.ValidationMessageFor(x => x.AdminMail, null, new { @class = "text-danger" })
+        <br />
+        @Html.Label("Role Giriniz")
+        @*@Html.TextBoxFor(x => x.AdminRole, new { @class = "form-control" })*@
+        @Html.DropDownListFor(x => x.RoleId, (List<SelectListItem>)ViewBag.adminrole, "Role Seçiniz", new { @class = "form-control", required = "" })
+        @*bu kodu validation kullanıcı ara yüzünde gözüksün diye yazıyoruz*@
+        @Html.ValidationMessageFor(x => x.RoleId, null, new { @class = "text-danger" })
+        <br />
+        @Html.Label("Admin Görselini Seçiniz")
+        @*@Html.TextBoxFor(x => x.AdminImage, new { @class = "form-control" })*@
+        @*bu kodu validation kullanıcı ara yüzünde gözüksün diye yazıyoruz*@
+        <input type="file" name="file" required="" />
+        @Html.ValidationMessageFor(x => x.AdminImage, null, new { @class = "text-danger" })
+        <br />
+        <button id="ehvr" class="btn btn-success">Admin Ekle</button>
+    </div>
+}
+

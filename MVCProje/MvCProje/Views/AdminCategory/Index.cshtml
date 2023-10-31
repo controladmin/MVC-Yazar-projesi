@@ -1,0 +1,199 @@
+﻿@using EntityLayer.Concrete
+@using PagedList
+@using PagedList.Mvc
+@model PagedList.IPagedList<Category>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int sayac = 0;
+}
+<br />
+<style>
+    tbody tr:nth-child(odd) {
+        background: #deb887;
+    }
+
+    tbody tr:nth-child(even) {
+        background: #5f9ea0;
+    }
+
+    thead th {
+        background: #a52a2a;
+        color: white !important;
+    }
+
+    #ghvr:hover {
+        background: #B0E0E6;
+    }
+
+    #shvr:hover {
+        background: #FF4500;
+    }
+
+    #ehvr:hover {
+        background: #0000CD;
+    }
+
+    #bhvr:hover {
+        background: #E0E0E0;
+        color: black;
+    }
+</style>
+
+@*sayfa geçişleri için content klasörü içindeki bu css değerini ekliyoruz daha iyi görüntü için*@
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <!--<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdminLTE 3 | Gallery</title>-->
+    <!-- Tell the browser to be responsive to screen width -->
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <!-- Font Awesome -->
+    <!--<link rel="stylesheet" href="~/AdminTema/plugins/fontawesome-free/css/all.min.css">-->
+    <!-- Ekko Lightbox -->
+    <!--<link rel="stylesheet" href="~/AdminTema/plugins/ekko-lightbox/ekko-lightbox.css">-->
+    <!-- Ionicons -->
+    <!--<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">-->
+    <!-- Theme style -->
+    <!--<link rel="stylesheet" href="~/AdminLTE-3.0.4/dist/css/adminlte.min.css">-->
+    <!-- Google Font: Source Sans Pro -->
+    <!--<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">-->
+</head>
+
+
+<body>
+    <h3>Kategori Tablosu</h3>
+    <br />
+    <table class="table table-bordered table table-hover text-center">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Kategori Adı</th>
+                <th>Açıklama</th>
+                <th>Durum</th>
+                <th>Güncelle</th>
+                <th>Sil</th>
+                <th>Başlıklar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                sayac++;
+                <tr>
+                    <td>@sayac</td>
+                    <td>@item.CategoryName</td>
+                    <td>@item.CategoryDescription</td>
+                    <td>@item.CategoryStatus</td>
+                    <td><a href="/AdminCategory/UpdateCategory/@item.CategoryId" id="ghvr" class="btn btn-primary">Güncelle</a></td>
+                    <td><a href="/AdminCategory/DeleteCategory/@item.CategoryId" id="shvr" class="btn btn-danger">Sil</a></td>
+                    <td><a href="" id="bhvr" class="btn btn-dark">Başlıklar</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br />
+    <a href="/AdminCategory/AddCategory" id="ehvr" class="btn btn-info">Yeni Kategori</a>
+
+    <!-- jQuery -->
+    <!--<script src="~/AdminTema/plugins/jquery/jquery.min.js"></script>-->
+    <!-- Bootstrap -->
+    <!--<script src="~/AdminTema/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>-->
+    <!-- jQuery UI -->
+    <!--<script src="~/AdminTema/plugins/jquery-ui/jquery-ui.min.js"></script>-->
+    <!-- Ekko Lightbox -->
+    <!--<script src="~/AdminTema/plugins/ekko-lightbox/ekko-lightbox.min.js"></script>-->
+    <!-- AdminLTE App -->
+    <!--<script src="~/AdminTema/dist/js/adminlte.min.js"></script>-->
+    <!-- AdminLTE for demo purposes -->
+    <!--<script src="~/AdminTema/dist/js/demo.js"></script>-->
+    <!-- Filterizr-->
+    <!--<script src="~/AdminTema/plugins/filterizr/jquery.filterizr.min.js"></script>-->
+    <!-- Page specific script -->
+    <!--<script>
+    $(function () {
+        $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+          event.preventDefault();
+          $(this).ekkoLightbox({
+            alwaysShowClose: true
+          });
+        });
+
+        $('.filter-container').filterizr({gutterPixels: 3});
+        $('.btn[data-filter]').on('click', function() {
+          $('.btn[data-filter]').removeClass('active');
+          $(this).addClass('active');
+        });
+      })</script>-->
+</body>
+</html>
+
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+@if ((string)TempData["information"] == "Güncelleme")
+{
+
+    <script type="text/javascript">
+
+        swal({
+            title: "Kayıt Güncelleme",
+            text: "Kayıt Güncellendi",
+            icon: "info",
+            buton: "OK"
+        });
+
+    </script>
+}
+
+@if ((string)TempData["information"] == "Ekleme")
+{
+
+    <script type="text/javascript">
+
+        swal({
+            title: "Kayıt Ekleme",
+            text: "Kayıt Eklendi",
+            icon: "success",
+            buton: "OK"
+        });
+
+    </script>
+}
+
+@if ((string)TempData["information"] == "Delete")
+{
+
+    <script type="text/javascript">
+
+        swal({
+            title: "Kayıt Silme",
+            text: "Kayıt Silindi",
+            icon: "warning",
+            buton: "OK"
+        });
+
+    </script>
+}
+
+
+@Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("Index", new { sayfa }))
+
+Toplam @Model.PageCount Sayfadan Sayfa @(Model.PageCount<Model.PageNumber? 0: Model.PageNumber) Görüntüleniyor
+
+
+@*css kullanmaz ise bu kodu kullanarak sayfa geçişlerindeki butonları yine görünümünü iyileştirebiliriz*@
+@*@Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("AllHeading", new { sayfa }),new PagedListRenderOptions
+    {
+        LiElementClasses=new List<string> {"page-link" }
+    })*@
+
+
+

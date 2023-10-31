@@ -1,0 +1,38 @@
+﻿@model EntityLayer.Concrete.Heading
+@{
+    ViewBag.Title = "AddNewHeading";
+    Layout = "~/Views/Shared/_WriterLayout.cshtml";
+}
+
+<style>
+    #ehvr:hover {
+        background: #00FF00;
+        color: black;
+    }
+</style>
+
+
+<br />
+<h2>Başlık Ekleme Sayfası</h2>
+<br />
+@using (Html.BeginForm("AddNewHeading", "WriterPanel", FormMethod.Post))
+{
+<div class="form-group">
+    @Html.HiddenFor(x => x.HeadingDate)
+
+    @Html.Label("Başlık Adını Giriniz")
+    @Html.TextBoxFor(x => x.HeadingName, new { @class = "form-control" })
+    @*bu kodu validation kullanıcı ara yüzünde gözüksün diye yazıyoruz*@
+    @Html.ValidationMessageFor(x => x.HeadingName, null, new { @class = "text-danger" })
+    <br />
+    @Html.Label("Kategori")
+        @Html.DropDownListFor(x => x.CategoryId, (List<SelectListItem>)ViewBag.vwcategory, "Kategori Seçiniz", new { @class = "form-control" })
+        @*bu kodu validation kullanıcı ara yüzünde gözüksün diye yazıyoruz*@
+        @Html.ValidationMessageFor(x => x.Category.CategoryId, null, new { @class = "text-danger" })
+    <br />
+    <button id="ehvr" href="/WriterPanel/AddNewHeading" class="btn btn-success">Başlık Ekle</button>
+</div>
+
+}
+
+

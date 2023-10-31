@@ -1,0 +1,149 @@
+﻿
+@{
+    Layout = null;
+}
+
+@*bu sayfa herhangi bir layout kullanmıyor kendisi başlı başına bir layout login layout sayfası olacak*@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Admin Girişi</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="/AdminTema/LoginPage/login-form-19/css/style.css">
+
+    <!--Admin Register-->
+    <!--<script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+
+    </script>-->
+    <!-- //Meta tag Keywords -->
+    <!-- Custom-Files -->
+    <!--<link rel="stylesheet" href="/AdminTema/VitrinTema/css/bootstrap.css">-->
+    <!-- Bootstrap-Core-CSS -->
+    <!--<link href="/AdminTema/VitrinTema/css/simpleLightbox.css" rel='stylesheet' type='text/css' />
+    <link href="/AdminTema/VitrinTema/css/roadmap.css" rel="stylesheet" type="text/css" />-->
+    <!-- Banner-Slider-CSS -->
+    <!--<link rel="stylesheet" href="/AdminTema/VitrinTema/css/snow.css">
+    <link rel="stylesheet" href="/AdminTema/VitrinTema/css/aos.css">
+    <link href='/AdminTema/VitrinTema/css/aos-animation.css' rel='stylesheet prefetch' type="text/css" media="all" />
+    <link rel="stylesheet" href="/AdminTema/VitrinTema/css/style.css" type="text/css" media="all" />-->
+    <!-- Style-CSS -->
+    <!--<link rel="stylesheet" href="/AdminTema/VitrinTema/css/fontawesome-all.css">-->
+    <!-- Font-Awesome-Icons-CSS -->
+    <!-- /Fonts -->
+    <!--<link href="//fonts.googleapis.com/css?family=Roboto:100,100i,300,400,400i,500,500i,700,700i,900" rel="stylesheet">-->
+    <!-- //Fonts -->
+    <!--Admin Register-->
+
+</head>
+<body>
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center mb-5">
+                    <h2 class="heading-section">Admin Girişi</h2>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-4">
+                    <div class="login-wrap py-5">
+                        <div class="img d-flex align-items-center justify-content-center" style="background-image: url(/AdminTema/LoginPage/login-form-19/images/bg.jpg);"></div>
+                        <h3 class="text-center mb-0">Hoşgeldiniz</h3>
+                        <p class="text-center">Kullanıcı Bilgilerinizi Giriniz</p>
+                        @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+                        {
+                            <div class="form-group">
+                                <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-user"></span></div>
+                                <input type="text" class="form-control" name="AdminUserName" placeholder="Kullanıcı Adı" required>
+                            </div>
+                            <div class="form-group">
+                                <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-lock"></span></div>
+                                <input type="password" name="AdminPassword" class="form-control" placeholder="******" required>
+                            </div>
+                            <div class="form-group d-md-flex">
+                                <div class="w-100 text-md-right">
+                                    <a href="/PasswordReset/AdminSifreReset/">Şifremi Unuttum</a>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn form-control btn-primary rounded submit px-3">Giriş Yap</button>
+                            </div>
+                        }
+                        <div class="w-100 text-center mt-4 text">
+                            <p class="text-center pb-4">
+                                @*<a href="#" data-toggle="modal" data-target="#adminModalCenter2"> Bir hesabınız yok mu?</a>*@
+                                <a href="~/Authorization/AddAdmin/" class="btn btn-warning"> Bir hesabınız yok mu?</a>
+                            </p>
+                            <a href="/Default/Headings/">Ana Sayfaya Git</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--Admin Register-->
+    <div class="modal fade" id="adminModalCenter2" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="login px-4 mx-auto mw-100">
+                        <h5 class="text-center mb-4">Kayıt olun</h5>
+                        <form action="#" method="post">
+                            <div class="form-group">
+                                <label>Adınız</label>
+
+                                <input type="text" class="form-control" id="validationDefault01" placeholder="Adınız" required="">
+                            </div>
+                            <div class="form-group">
+                                <label>Soyadınız</label>
+                                <input type="text" class="form-control" id="validationDefault02" placeholder="Soyadınız" required="">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="mb-2">Şifre</label>
+                                <input type="password" class="form-control" id="password1" placeholder="Şifre" required="">
+                            </div>
+                            <div class="form-group">
+                                <label>Şifre tekrar</label>
+                                <input type="password" class="form-control" id="password2" placeholder="Şifre tekrar" required="">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary submit mb-4">Kayıt ol</button>
+                            <p class="text-center pb-4">
+                                <a href="#">Kayıt ola tıklayarak şartları kabul ediyorum</a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/AdminTema/LoginPage/login-form-19/js/jquery.min.js"></script>
+    <script src="/AdminTema/LoginPage/login-form-19/js/popper.js"></script>
+    <script src="/AdminTema/LoginPage/login-form-19/js/bootstrap.min.js"></script>
+    <script src="/AdminTema/LoginPage/login-form-19/js/main.js"></script>
+
+</body>
+</html>
+
+

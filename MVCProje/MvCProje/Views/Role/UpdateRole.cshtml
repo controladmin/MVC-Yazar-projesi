@@ -1,0 +1,36 @@
+﻿@model EntityLayer.Concrete.Role
+@{
+    ViewBag.Title = "UpdateRole";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    #ghvr:hover {
+        background: #7b68ee;
+        color: black;
+    }
+</style>
+
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<br />
+<h1>Rol Ekleme Sayfası</h1>
+<br />
+@using (Html.BeginForm("UpdateRole", "Role", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.HiddenFor(x => x.RoleId)
+        @Html.Label("Rol Adı")
+        @Html.TextBoxFor(x => x.RoleName, new { @class = "form-control" })
+        @*bu kodu validation kullanıcı ara yüzünde gözüksün diye yazıyoruz*@
+        @Html.ValidationMessageFor(x => x.RoleName, null, new { @class = "text-danger" })
+        <br />
+        @Html.Label("Rol Açıklamasını Giriniz")
+        @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })
+        @*bu kodu validation kullanıcı ara yüzünde gözüksün diye yazıyoruz*@
+        @Html.ValidationMessageFor(x => x.Description, null, new { @class = "text-danger" })
+        <br />
+        <button id="ghvr" class="btn btn-primary">Role Güncelle</button>
+    </div>
+}
+

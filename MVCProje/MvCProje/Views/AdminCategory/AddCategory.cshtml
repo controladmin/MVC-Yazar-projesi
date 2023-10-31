@@ -1,0 +1,89 @@
+﻿@model EntityLayer.Concrete.Category
+@{
+    ViewBag.Title = "AddCategory";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>MVC Proje</title>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="/AdminTema/plugins/fontawesome-free/css/all.min.css">
+    <!-- IonIcons -->
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/AdminTema/dist/css/adminlte.min.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+
+
+<style>
+    #ehvr:hover {
+        background: #00FF00;
+        color: black;
+    }
+</style>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<br />
+<h1>Yeni Kategori Ekleme Sayfası</h1>
+<br />
+@using (Html.BeginForm("AddCategory", "AdminCategory", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.Label("Kategori Adı")
+        @Html.TextBoxFor(x => x.CategoryName, new { @class = "form-control" })
+        @*bu kodu validation kullanıcı ara yüzünde gözüksün diye yazıyoruz*@
+        @Html.ValidationMessageFor(x => x.CategoryName, null, new { @class = "text-danger" })
+        <br /><br />
+        @Html.Label("Açıklamayı Giriniz")
+        @Html.TextAreaFor(x => x.CategoryDescription, new { @class = "form-control" })
+        @*bu kodu validation kullanıcı ara yüzünde gözüksün diye yazıyoruz*@
+        @Html.ValidationMessageFor(x => x.CategoryDescription, null, new { @class = "text-danger" })
+        <br /><br />
+        <button id="ehvr" onclick="kategoriekle()" class="btn btn-success">Kategori Ekle</button>
+    </div>
+}
+
+<!-- jQuery -->
+<!--<script src="~/AdminTema/plugins/jquery/jquery.min.js"></script>-->
+<!-- Bootstrap -->
+<!--<script src="~/AdminTema/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>-->
+<!-- jQuery UI -->
+<!--<script src="~/AdminTema/plugins/jquery-ui/jquery-ui.min.js"></script>-->
+<!-- Ekko Lightbox -->
+<!--<script src="~/AdminTema/plugins/ekko-lightbox/ekko-lightbox.min.js"></script>-->
+<!-- AdminLTE App -->
+<!--<script src="~/AdminTema/dist/js/adminlte.min.js"></script>-->
+<!-- AdminLTE for demo purposes -->
+<!--<script src="~/AdminTema/dist/js/demo.js"></script>-->
+<!-- Filterizr-->
+<!--<script src="~/AdminTema/plugins/filterizr/jquery.filterizr.min.js"></script>-->
+<!-- Page specific script -->
+<!--<script>
+    $(function () {
+        $(document).on('click', '[data-toggle="lightbox"]', function (event) {
+            event.preventDefault();
+            $(this).ekkoLightbox({
+                alwaysShowClose: true
+            });
+        });
+
+        $('.filter-container').filterizr({ gutterPixels: 3 });
+        $('.btn[data-filter]').on('click', function () {
+            $('.btn[data-filter]').removeClass('active');
+            $(this).addClass('active');
+        });
+    })</script>-->
+
+
+
+

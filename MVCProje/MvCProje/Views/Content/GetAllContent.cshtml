@@ -1,0 +1,76 @@
+﻿@using EntityLayer.Concrete
+@using PagedList
+@using PagedList.Mvc
+@model PagedList.IPagedList<Content>
+
+@{
+    ViewBag.Title = "GetAllContent";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int sayac = 0;
+}
+
+@*sayfa geçişleri için content klasörü içindeki bu css değerini ekliyoruz daha iyi görüntü için*@
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<style>
+    thead th {
+        background: #00ffff;
+        color: black !important;
+    }
+
+    tbody tr:nth-child(odd) {
+        background: #fffff0;
+    }
+
+    tbody tr:nth-child(even) {
+        background: #fff0f5;
+    }
+</style>
+<br />
+@using (Html.BeginForm("GetAllContent", "Content", FormMethod.Post))
+{
+    <p>
+        Aranacak Kelimeyi Giriniz : @Html.TextBox("searchContent")
+        <input type="submit" value="Ara" />
+    </p>
+}
+<br />
+@if (Model.Count > 0)
+{
+    <table class="table table-bordered table table-hover text-center">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>İçerik Değeri</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                sayac++;
+                <tr>
+                    <td>@sayac</td>
+                    <td>@item.ContentValue</td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <span class="text-danger">Aranan veri bulunmamaktadır</span>
+}
+
+@Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("Index", new { sayfa }))
+
+Toplam @Model.PageCount Sayfadan Sayfa @(Model.PageCount<Model.PageNumber? 0: Model.PageNumber) Görüntüleniyor
+
+
+@*css kullanmaz ise bu kodu kullanarak sayfa geçişlerindeki butonları yine görünümünü iyileştirebiliriz*@
+@*@Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("AllHeading", new { sayfa }),new PagedListRenderOptions
+    {
+        LiElementClasses=new List<string> {"page-link" }
+    })*@

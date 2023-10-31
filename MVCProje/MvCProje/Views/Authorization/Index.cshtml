@@ -1,0 +1,189 @@
+﻿@using EntityLayer.Concrete
+@using PagedList
+@using PagedList.Mvc
+@model PagedList.IPagedList<Admin>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int sayac = 0;
+}
+
+<br />
+<style>
+    tbody tr:nth-child(odd) {
+        background: #fff5ee;
+    }
+
+    tbody tr:nth-child(even) {
+        background: #dda0dd;
+    }
+
+    thead th {
+        background: #40e0d0;
+        color: black !important;
+    }
+
+    #ghvr:hover {
+        background: #B0E0E6;
+    }
+
+    #shvr:hover {
+        background: #ffa07a;
+    }
+
+    #phvr:hover {
+        background: #800080;
+    }
+
+    #yhvr:hover {
+        background: #d2b48c;
+        color: black;
+    }
+
+    #ehvr:hover {
+        background: #2e8b57;
+        color: black;
+    }
+
+    img {
+        border: 1px solid #ddd;
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+    }
+</style>
+
+@*sayfa geçişleri için content klasörü içindeki bu css değerini ekliyoruz daha iyi görüntü için*@
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+<h3>Admin Kullanıcı Tablosu</h3>
+<a href="/Authorization/AddAdmin/" id="ehvr" class="btn btn-success">Yeni Kullanıcı Ekle</a>
+<br />
+<br />
+<table class="table table-bordered table table-hover text-center">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Kullanıcı Adı</th>
+            <th>Yetki</th>
+            <th>Durum</th>
+            <th>Resim</th>
+            <th>Durum</th>
+            <th>Güncelle</th>
+            <th>Sil</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            sayac++;
+            <tr>
+                <td>@sayac</td>
+                <td>@item.AdminUserName</td>
+                <td>@item.Role.RoleName</td>
+                <td>@item.AdminStatus</td>
+                <td><img src="@item.AdminImage" alt="Admin Resmi" /></td>
+                <td>
+                    @switch (item.AdminStatus)
+                    {
+                        case false:
+                            <a class="btn btn-success btn-sm" href="/Authorization/StatusChangeAdmin/@item.AdminId">
+                                <i class="fas fa-arrow-alt-circle-up">
+                                </i>
+                                Aktif Yap
+                            </a>
+                            break;
+                        case true:
+                            <a class="btn btn-danger btn-sm" href="/Authorization/StatusChangeAdmin/@item.AdminId">
+                                <i class="fas fa-arrow-alt-circle-up">
+                                </i>
+                                Pasif Yap
+                            </a>
+                            break;
+                        default:
+                            break;
+                    }
+                </td>
+                <td><a href="/Authorization/UpdateAdmin/@item.AdminId" id="ghvr" class="btn btn-primary">Güncelle</a></td>
+                <td><a href="/Authorization/DeleteAdmin/@item.AdminId" id="shvr" class="btn btn-danger">Sil</a></td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+@Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("Index", new { sayfa }))
+
+Toplam @Model.PageCount Sayfadan Sayfa @(Model.PageCount<Model.PageNumber? 0: Model.PageNumber) Görüntüleniyor
+
+
+@*css kullanmaz ise bu kodu kullanarak sayfa geçişlerindeki butonları yine görünümünü iyileştirebiliriz*@
+@*@Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("AllHeading", new { sayfa }),new PagedListRenderOptions
+    {
+        LiElementClasses=new List<string> {"page-link" }
+    })*@
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+@if ((string)TempData["information"] == "Güncelleme")
+{
+
+    <script type="text/javascript">
+
+        swal({
+            title: "Admin Güncelleme",
+            text: "Kayıt Güncellendi",
+            icon: "info",
+            buton: "OK"
+        });
+
+    </script>
+}
+
+@if ((string)TempData["information"] == "Ekleme")
+{
+
+    <script type="text/javascript">
+
+        swal({
+            title: "Admin Ekleme",
+            text: "Kayıt Eklendi",
+            icon: "success",
+            buton: "OK"
+        });
+
+    </script>
+}
+
+@if ((string)TempData["information"] == "Delete")
+{
+
+    <script type="text/javascript">
+
+        swal({
+            title: "Admin Silme",
+            text: "Kayıt Silindi",
+            icon: "warning",
+            buton: "OK"
+        });
+
+    </script>
+}
+
+@if ((string)TempData["information"] == "Change")
+{
+
+    <script type="text/javascript">
+        swal({
+           content:"<b> Durum Değiştirildi </b>",
+            title: "Admin Durum Değiştirme",
+            text:"Durum Değiştirildi",
+            icon: "info",
+            buton: "OK"
+        });
+
+    </script>
+}
+

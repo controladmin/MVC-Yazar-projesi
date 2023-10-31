@@ -1,0 +1,60 @@
+﻿@using EntityLayer.Concrete
+@model List<Mesaj>
+@{
+    ViewBag.Title = "GetAllMesaj";
+    Layout = "~/Views/Shared/_WriterLayout.cshtml";
+    int sayac = 0;
+}
+
+<br />
+
+<style>
+    thead th {
+        background: #cd5c5c;
+        color: white !important;
+    }
+
+    tbody tr:nth-child(odd) {
+        background: #e6e6fa;
+    }
+
+    tbody tr:nth-child(even) {
+        background: #fff0f5;
+    }
+</style>
+<br />
+@using (Html.BeginForm("GetAllMesaj", "Mesaj", FormMethod.Post))
+{
+    <p>
+        Aranacak Kelimeyi Giriniz : @Html.TextBox("searchContent")
+        <input type="submit" value="Ara" />
+    </p>
+}
+<br />
+@if (Model.Count > 0)
+{
+    <table class="table table-bordered table table-hover text-center">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>İçerik Değeri</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                sayac++;
+                <tr>
+                    <td>@sayac</td>
+                    <td>@item.MesajKonusu</td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <span class="text-danger">Aranan veri bulunmamaktadır</span>
+}
+

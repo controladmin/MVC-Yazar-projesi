@@ -1,0 +1,48 @@
+﻿@model EntityLayer.Concrete.Category
+@{
+    ViewBag.Title = "UpdateCategory";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    #ghvr:hover {
+        background: #B0E0E6;
+        color: black;
+    }
+</style>
+
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<br />
+<h1>Kategori Düzenleme Sayfası</h1>
+<br />
+@using (Html.BeginForm("UpdateCategory", "AdminCategory", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.HiddenFor(x => x.CategoryId, new { @class = "form-control" })
+        @Html.Label("Kategori Adı")
+        @Html.TextBoxFor(x => x.CategoryName, new { @class = "form-control" })
+        @*bu kodu validation kullanıcı ara yüzünde gözüksün diye yazıyoruz*@
+        @Html.ValidationMessageFor(x => x.CategoryName, null, new { @class = "text-danger" })
+        <br /><br />
+        @Html.Label("Açıklamayı Giriniz")
+        @Html.TextAreaFor(x => x.CategoryDescription, new { @class = "form-control" })
+        @*bu kodu validation kullanıcı ara yüzünde gözüksün diye yazıyoruz*@
+        @Html.ValidationMessageFor(x => x.CategoryDescription, null, new { @class = "text-danger" })
+        <br /><br />
+        <button id="ghvr" class="btn btn-primary">Kategori Düzenle</button>
+    </div>
+}
+
+
+
+
+@*<form class="form-group" method="post">
+        <label>Kategori Adı</label>
+        <input type="text" class="form-control" name="CategoryName" placeholder="Kategori Adı"/>
+        <br />
+        <label>Açıklama Giriniz</label>
+        <input type="text" class="form-control" name="Description" placeholder="Açıklama Giriniz" />
+        <br />
+        <button class="btn btn-success">Kategori Ekle</button>
+    </form>*@
+

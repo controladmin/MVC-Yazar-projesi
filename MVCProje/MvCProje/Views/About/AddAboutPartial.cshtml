@@ -1,0 +1,56 @@
+﻿@model EntityLayer.Concrete.About
+
+<style>
+    #yhvr:hover {
+        background: #ffe4b5;
+        color: black
+    }
+
+    #khvr:hover {
+        background: #3cb371;
+        color: black;
+    }
+
+    #chvr:hover {
+        background: #b0e0e6;
+        color: black;
+    }
+</style>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<button id="yhvr" class="btn btn-secondary btn-lg" data-toggle="modal" data-target="#modal">Yeni Hakkımızda Girişi</button>
+
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Yeni Hakkımızda Girişi</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            @using (Html.BeginForm("AddAbout", "About", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Hakkımızda Metni 1</label>
+                        <input type="text" name="AboutDetails1" class="form-control" required="" />
+                        @Html.ValidationMessageFor(x => x.AboutDetails1, null, new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label>Hakkımızda Metni 2</label>
+                        <input type="text" name="AboutDetails2" class="form-control" required="" />
+                        @Html.ValidationMessageFor(x => x.AboutDetails2, null, new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label>Hakkımızda Resmi</label>
+                        <input type="file" name="file" required="" />
+                        @Html.ValidationMessageFor(x => x.AboutImage, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="chvr" type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                    <button id="khvr" type="submit" class="btn btn-success">Kaydet</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

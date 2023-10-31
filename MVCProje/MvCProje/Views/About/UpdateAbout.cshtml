@@ -1,0 +1,50 @@
+﻿@model EntityLayer.Concrete.About
+
+@{
+    ViewBag.Title = "UpdateAbout";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    #ghvr:hover {
+        background: #8a2be2;
+        color: black;
+    }
+</style>
+
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<br />
+<h1>Hakkımızda Güncelleme Sayfası</h1>
+<br />
+@using (Html.BeginForm("UpdateAbout", "About", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="form-group">
+        @Html.HiddenFor(x => x.AboutId)
+        @Html.Label("Açıklama 1 Giriniz")
+        @Html.TextBoxFor(x => x.AboutDetails1, new { @class = "form-control" })
+        @*bu kodu validation kullanıcı ara yüzünde gözüksün diye yazıyoruz*@
+        @Html.ValidationMessageFor(x => x.AboutDetails1, null, new { @class = "text-danger" })
+        <br />
+        @Html.Label("Açıklama 2 Giriniz")
+        @Html.TextBoxFor(x => x.AboutDetails2, new { @class = "form-control" })
+        @*bu kodu validation kullanıcı ara yüzünde gözüksün diye yazıyoruz*@
+        @Html.ValidationMessageFor(x => x.AboutDetails2, null, new { @class = "text-danger" })
+        <br />
+        @Html.Label("Görsel Seçiniz")
+        <input type="file" name="file" />
+        @*bu kodu validation kullanıcı ara yüzünde gözüksün diye yazıyoruz*@
+        @Html.ValidationMessageFor(x => x.AboutImage, null, new { @class = "text-danger" })
+        <br /><br />
+        <button id="ghvr" class="btn btn-primary">Hakkımızda Güncelle</button>
+    </div>
+}
+
+
+
+
+
+
+
+

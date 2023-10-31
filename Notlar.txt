@@ -1,0 +1,101 @@
+
+
+Proje ekleme Asp.Net Web Application(.Net Framework) ekliyoruz proje olarak
+VS 2019 da Web Form desteği kaldırıldı
+Modal = Veri tabanına ait Entitylerin tanımlandığı kısım
+Views = Görünen tasarım kısmı frontend kısmı
+Controller = Backend kısmı kodlama yapılan kısımdır
+
+Katmanların oluşturulması
+1. Entity Katmanı = Entities katmanında genelde domain olarak adlandırılan classlarımızı tanımlıyoruz gerçek nesnelerimizi burada belirliyoruz
+2. DataAccess Katmanı = Bu katmanda sadece veri tabanı işlemleri yapılmaktadır bu katmanın görevi veriyi ekleme silme güncelleme ve veri tabanından çekme işlemidir bu katmanda bu işlemlerden başka işlem yapılmamaktadır
+3. Business Katmanı = Bu katmanda iş yüklerimizi yazıyoruz bu katman data access tarafından projeye çekilmiş olan verileri alarak işleyecek olan katmandır 
+uygulamalarda data access katmanını direkt olarak kullanmayız araya business katmanı koyarak bizim yerimize business katmanının yapmasını isteriz kullanıcıdan gelen veriler öncelikle business katmanına gider oradan işlenerek
+data access katmanına aktarılır bu katmanda ayrıca verilere kimlerin erişeceğini belirtiyoruz
+4. Presentation Katmanı- User Interface UI Katmanı = Bu katman kullanıcı ile etkileşim yapılan katmandır. burada temel amaç kullanıcıya verileri göstermek ve kullanıcıdan gelen verileri Business katmanı ile data access
+katmanına iletmektir
+
+Projeye sağ click add new project diyerek ClassLabrary(.Net Framework seçilip ayrı bir proje gibi sisteme eklenir adları EntityLayer DataAccessLayer BusinessLayer PresentationLayer olarak verilir)
+
+
+
+[Key] birincil anahtar sözcüğünü kullanabilmek için EntityLayer katmanına sağ click NuGet sayfasında EntityFramework kütüphanesini ekliyoruz
+
+DataAccessLayer katmanına sağ click NuGet sayfasında EntityFramework kütüphanesini ekliyoruz
+
+DataAccessLayer katmanına sağ click add reference diyerek EntityLayer katmanını reference olarak ekliyoruz
+
+BusinessLayer katmanına sağ click add reference diyerek EntityLayer katmanını ve DataAccessLayer Katmanını reference olarak ekliyoruz
+
+MVCProjeUI katmanına sağ click add reference diyerek EntityLayer DataAccessLayer ve BusinessLayer katmanlarını referans olarak ekliyoruz
+
+BusinessLayer katmanına sağ click NuGet sayfasında EntityFramework kütüphanesini ekliyoruz
+
+BusinessLayer katmanına NuGet sayfasından FluentValidation v8.0.0 kütüphanesini yüklüyoruz
+
+CS0012 (The type 'type' is defined in an assembly that is not referenced) "Hatası almanız halinde EntityLayer katmanında Referanslara sağ tık atıp referans ekle yardımı ile 
+arama alanına WindowsBase yazarak gelen seçenekte kutucuğu işaretleyip ok dediğinizde konsol da çıkan hatalara tıklayarak açtığınızda hataların gittiğini görebilirsiniz"
+
+Projede WebConfig içine Database bağlantı adresini yazıyoruz
+
+<connectionStrings>
+<add name="Context" connectionString="data source=DESKTOP-B34VKQ7\SQLEXPRESS01; initial catalog=MVCProjeDB; integrated security=true;" providerName="System.Data.SqlClient"/>
+</connectionStrings>
+
+tabloları sqlde oluşturmadan önce Package Manager Console ekranına enable-migrations yazıyoruz
+
+"özel durum bir çağırma hedefi tarafından oluşturuldu" bu hatayı alanlar EntityFramework sürümünü 6.2.0 a güncellesin proje FrameWorku ise 4.5 olacak
+
+Configuration.cs dosyası içinde AutomaticMigrationsEnabled = false; burası false olarak geliyor bizim migration üzerinde değişiklikler yapabilmemiz için AutomaticMigrationsEnabled = true; olarak değiştirmemiz gerek
+
+Not = tablo Id değerleri 1'den başlayarak ardışık olarak gitmez ise aşağıdaki kodu çalıştırarak ardışık gitmesini sağlayabiliriz
+
+SQL 'de DELETE FROM tablo_adi  diyerek tabloda ki verileri silip daha sonra DBCC CHECKIDENT (‘tablo adı’,RESEED,0) komutunu çalıştırarak id sini 1 den başlatabilirsiniz. Verileri tekrar girip sırayla ilerlemesini sağlayabiliriz
+
+Temayı projede MVCProjeUI üzerine sürükle bırak ile ekliyoruz
+
+View Shared altına _AdminLayout diye boş bir View ekliyoruz
+
+@RenderBody() = layouta bağlı olarak çalışacak sayfaların sayfanın hangi konumunda yer alacağını belirliyor
+
+Error 403 = bir http durum kodudur. yani ulaşmaya çalıştığınız sayfaya veya kaynağa erişimin bazı nedenlerle kesinlikle yasak olduğu anlamına gelir
+
+Error 404 = istenilen dosyanın ilgili web sitesinin server sisteminde bulunamadığı anlamına gelir. aslında kullanıcı sunucuya bağlanabiliyor ancak istediği sunucuya erişemiyor
+
+Hata olduğunda sayfa yönlendirmesi için ErrorPageController oluşturulur daha sonra web.config dosyasında hata olduğunda yönlendirme yapması için system web içine aşağıdaki kod yazılır
+<customErrors mode="On">
+<error statusCode="404" redirect="/ErrorPage/Page404/"/>
+</customErrors> bu kodu yazıyoruz
+
+
+&mdash; Or Sign In With &mdash;  yaznın sağına soluna kısa çizgi koyar
+
+Global.asax.cs içine   GlobalFilters.Filters.Add(new AuthorizeAttribute()); bu kodu ekliyoruz
+
+sayfalama işlemleri için projeye NuGet sayfasından PagedList ve PagetList.Mvc kütüphanelerini ekliyoruz
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

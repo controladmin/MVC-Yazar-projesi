@@ -1,0 +1,62 @@
+﻿@using EntityLayer.Concrete
+@model List<Category>
+@{
+    Layout = null;
+    int sayac = 0;
+}
+
+
+@*Bu layout herhangi bir layout kullanmıyor yada partial değildir kendi başına bir layouttur*@
+
+<style>
+    tbody tr:nth-child(odd) {
+        background: #deb887;
+    }
+
+    tbody tr:nth-child(even) {
+        background: #5f9ea0;
+    }
+    thead th {
+        background: #a52a2a;
+        color: white !important;
+    }
+
+    #hvr:hover {
+        background: #4682B4;
+</style>
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+<h3>Kategori Tablosu</h3>
+<br />
+<table class="table table-bordered table table-hover text-center">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Kategori Adı</th>
+            <th>Açıklama</th>
+            <th>Durum</th>
+            <th>Güncelle</th>
+            <th>Sil</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            sayac++;
+            <tr>
+                <td>@sayac</td>
+                <td>@item.CategoryName</td>
+                <td>@item.CategoryDescription</td>
+                <td>@item.CategoryStatus</td>
+                <td><a href="" class="btn btn-primary">Güncelle</a></td>
+                <td><a href="" class="btn btn-danger">Sil</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a href="/Category/AddCategory" id="hvr" class="btn btn-info">Yeni Kategori</a>
+<a class="btn btn-warning">Kategori Listesi</a>
+<a class="btn btn-danger">Kategori Açıklamaları</a>
+
+

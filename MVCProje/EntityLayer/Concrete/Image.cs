@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations; // [Key] ifadesini kullanabilmek için ekledik
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace EntityLayer.Concrete
+{
+    public class Image
+    {
+        [Key]
+        public int ImageId{get;set;}
+        [StringLength(100)]
+        public string ImageName { get; set; }
+        [StringLength(300)]
+        public string ImagePath { get; set; }
+    }
+}

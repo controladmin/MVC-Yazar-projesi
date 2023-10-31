@@ -1,0 +1,183 @@
+﻿@using EntityLayer.Concrete
+@using PagedList
+@using PagedList.Mvc
+@model PagedList.IPagedList<Writer>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@*sayfa geçişleri için content klasörü içindeki bu css değerini ekliyoruz daha iyi görüntü için*@
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+<br />
+<style>
+    tbody tr:nth-child(odd) {
+        background: #FFEFD5;
+    }
+
+    tbody tr:nth-child(even) {
+        background: #FFDAB9;
+    }
+
+    thead th {
+        background: #DA70D6;
+        color: white !important;
+    }
+
+    #ghvr:hover {
+        background: #B0E0E6;
+    }
+
+    #shvr:hover {
+        background: #FF4500;
+    }
+
+    #ehvr:hover {
+        background: #0000CD;
+    }
+
+    #bhvr:hover {
+        background: #E0E0E0;
+        color: black;
+    }
+</style>
+
+@if (Model.Count > 0)
+{
+    <!DOCTYPE html>
+    <html>
+
+
+    <body class="hold-transition sidebar-mini">
+
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Yazarlar Listesi</h1>
+                    </div>
+                    <a href="~/Writer/AddWriter/" class="btn btn-info">Yeni Yazar Girişi</a>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <section class="content">
+            <div class="card card-solid">
+                <div class="card-body pb-0">
+                    <div class="row d-flex align-items-stretch">
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+                                <div class="card bg-light">
+                                    <div class="card-header text-muted border-bottom-0">
+                                        @item.WriterTitle
+                                    </div>
+                                    <div class="card-body pt-0">
+                                        <div class="row">
+                                            <div class="col-7">
+                                                <h2 class="lead"><b>@item.WriterName @item.WriterSurname</b></h2>
+                                                <p class="text-muted text-sm"><b>Hakkında: </b>@item.WriterAbout</p>
+                                                <ul class="ml-4 mb-0 fa-ul text-muted">
+                                                    <li class="small"><span class="fa-li"><i class="fas fa-lg fa-mail-bulk"></i></span> Mail:@item.WriterMail</li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-5 text-center">
+                                                <img src="@item.WriterImage" alt="Yazar Görseli" class="img-circle img-fluid">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="text-right">
+                                            <a href="/WriterPanelContent/WriterContent/@item.WriterId" class="btn btn-sm bg-teal">
+                                                <i class="fas fa-comments">Yazarın Başlıkları</i>
+                                            </a>
+                                            <a href="/Writer/UpdateWriter/@item.WriterId" class="btn btn-sm btn-primary">
+                                                <i class="fas fa-user"></i> Profili Düzenle
+                                            </a>
+                                            <a href="/Writer/DeleteWriter/@item.WriterId" class="btn btn-sm btn-danger">
+                                                <i class="fas fa-user"></i> Yazarı Sil
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>
+}
+else
+{
+<div class="">
+    <span style="color:red;">Herhangi bir yazar bilgisi bulunmamaktadır!!!</span>
+</div>
+}
+
+@Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("Index", new { sayfa }))
+
+Toplam @Model.PageCount Sayfadan Sayfa @(Model.PageCount<Model.PageNumber? 0: Model.PageNumber) Görüntüleniyor
+
+
+@*css kullanmaz ise bu kodu kullanarak sayfa geçişlerindeki butonları yine görünümünü iyileştirebiliriz*@
+@*@Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("AllHeading", new { sayfa }),new PagedListRenderOptions
+    {
+        LiElementClasses=new List<string> {"page-link" }
+    })*@
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+@if ((string)TempData["writer"] == "Güncelleme")
+{
+
+    <script type="text/javascript">
+
+        swal({
+            title: "info",
+            text: "Kayıt Güncellendi",
+            icon: "info",
+            buton: "OK"
+        });
+
+    </script>
+}
+
+@if ((string)TempData["writer"] == "Ekleme")
+{
+
+    <script type="text/javascript">
+
+        swal({
+            title: "Success",
+            text: "Kayıt Eklendi",
+            icon: "success",
+            buton: "OK"
+        });
+
+    </script>
+}
+
+@if ((string)TempData["writer"] == "Delete")
+{
+
+    <script type="text/javascript">
+
+        swal({
+            title: "Warning",
+            text: "Kayıt Silindi",
+            icon: "warning",
+            buton: "OK"
+        });
+
+    </script>
+}
+
+
+
+

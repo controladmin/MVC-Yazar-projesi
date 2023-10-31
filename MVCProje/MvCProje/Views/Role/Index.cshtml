@@ -1,0 +1,132 @@
+﻿@using EntityLayer.Concrete
+@using PagedList
+@using PagedList.Mvc
+@model PagedList.IPagedList<Role>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int sayac = 0;
+}
+<br />
+<style>
+    tbody tr:nth-child(odd) {
+        background: #ffd700;
+    }
+
+    tbody tr:nth-child(even) {
+        background: #daa520;
+    }
+
+    thead th {
+        background: #9400d3;
+        color: black !important;
+    }
+
+    #ghvr:hover {
+        background: #B0E0E6;
+    }
+
+    #shvr:hover {
+        background: #ffa07a;
+    }
+
+    #ehvr:hover {
+        background: #2e8b57;
+        color: black;
+    }
+</style>
+
+@*sayfa geçişleri için content klasörü içindeki bu css değerini ekliyoruz daha iyi görüntü için*@
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<h3>Admin Kullanıcı Tablosu</h3>
+<br />
+<table class="table table-bordered table table-hover text-center">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Role Adı</th>
+            <th>Açıklama</th>
+            <th>Güncelle</th>
+            <th>Sil</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            sayac++;
+            <tr>
+                <td>@sayac</td>
+                <td>@item.RoleName</td>
+                <td>@item.Description</td>
+                <td><a href="/Role/UpdateRole/@item.RoleId" id="ghvr" class="btn btn-primary">Güncelle</a></td>
+                <td><a href="/Role/DeleteRole/@item.RoleId" id="shvr" class="btn btn-danger">Sil</a></td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+<a href="/Role/AddRole/" id="ehvr" class="btn btn-success">Yeni Rol Ekle</a>
+
+@Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("Index", new { sayfa }))
+
+Toplam @Model.PageCount Sayfadan Sayfa @(Model.PageCount<Model.PageNumber? 0: Model.PageNumber) Görüntüleniyor
+
+
+@*css kullanmaz ise bu kodu kullanarak sayfa geçişlerindeki butonları yine görünümünü iyileştirebiliriz*@
+@*@Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("AllHeading", new { sayfa }),new PagedListRenderOptions
+    {
+        LiElementClasses=new List<string> {"page-link" }
+    })*@
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+@if ((string)TempData["role"] == "Güncelleme")
+{
+
+    <script type="text/javascript">
+
+        swal({
+            title: "info",
+            text: "Rol Güncellendi",
+            icon: "info",
+            buton: "OK"
+        });
+
+    </script>
+}
+
+@if ((string)TempData["role"] == "Ekleme")
+{
+
+    <script type="text/javascript">
+
+        swal({
+            title: "Success",
+            text: "Rol Eklendi",
+            icon: "success",
+            buton: "OK"
+        });
+
+    </script>
+}
+
+@if ((string)TempData["role"] == "Delete")
+{
+
+    <script type="text/javascript">
+
+        swal({
+            title: "Warning",
+            text: "Rol Silindi",
+            icon: "warning",
+            buton: "OK"
+        });
+
+    </script>
+}
+
+

@@ -1,0 +1,35 @@
+﻿@model EntityLayer.Concrete.Role
+@{
+    ViewBag.Title = "AddRole";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    #ehvr:hover {
+        background: #00FF00;
+        color: black;
+    }
+</style>
+
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<br />
+<h1>Rol Ekleme Sayfası</h1>
+<br />
+@using (Html.BeginForm("AddRole", "Role", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.Label("Rol Adı")
+        @Html.TextBoxFor(x => x.RoleName, new { @class = "form-control" })
+        @*bu kodu validation kullanıcı ara yüzünde gözüksün diye yazıyoruz*@
+        @Html.ValidationMessageFor(x => x.RoleName, null, new { @class = "text-danger" })
+        <br />
+        @Html.Label("Rol Açıklamasını Giriniz")
+        @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })
+        @*bu kodu validation kullanıcı ara yüzünde gözüksün diye yazıyoruz*@
+        @Html.ValidationMessageFor(x => x.Description, null, new { @class = "text-danger" })
+        <br />
+        <button id="ehvr" class="btn btn-success">Role Ekle</button>
+    </div>
+}
+

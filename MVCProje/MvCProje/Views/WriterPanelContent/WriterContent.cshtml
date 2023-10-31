@@ -1,0 +1,68 @@
+﻿@using EntityLayer.Concrete
+@model List<Content>
+@{
+    ViewBag.Title = "WriterContent";
+    Layout = "~/Views/Shared/_WriterLayout.cshtml";
+}
+
+<br />
+<!DOCTYPE html>
+@if (Model.Count > 0)
+{
+    <html>
+    <body class="hold-transition sidebar-mini">
+        <div class="wrapper">
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="timeline">
+                                @foreach (var item in Model)
+                                {
+                                    <div class="time-label">
+                                        <span class="bg-success">@(((DateTime)item.ContentDate).ToString("dd-MM-yyyy")) -- Yazar Adı: @item.Writer.WriterName @item.Writer.WriterSurname </span>
+                                    </div>
+                                    <div>
+                                        <i class="fas fa-comment bg-yellow"></i>
+                                        <div class="timeline-item">
+                                            <h3 class="timeline-header"><a href="#">Başlık:</a> @item.Heading.HeadingName </h3>
+                                            <div class="timeline-body">
+                                                @item.ContentValue
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </body>
+</html>
+}
+else
+{
+<div class="">
+    <span style="color:red;">Geçerli bir content bilgisi bulunmamaktadır!!!</span>
+</div>
+}
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+@if ((string)TempData["content"] == "Ekleme")
+{
+
+    <script type="text/javascript">
+
+        swal({
+            title: "Success",
+            text: "İçerik Eklendi",
+            icon: "success",
+            buton: "OK"
+        });
+
+    </script>
+}
+
